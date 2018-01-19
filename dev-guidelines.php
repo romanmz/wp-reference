@@ -28,6 +28,7 @@ WORDPRESS.ORG ???
 API REFERENCE ???
 https://make.wordpress.org/core/handbook/best-practices/core-apis/
 https://developer.wordpress.org/reference/
+https://codex.wordpress.org/Function_Reference
 
 DEV TOOLS ???
 Local Environment

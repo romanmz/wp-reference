@@ -12,8 +12,8 @@ Text Domain: text-domain
 Domain Path: /languages                                     // Only required if folder name is not "languages"
 
 LOADING TEXT DOMAINS
-load_theme_textdomain( 'text-domain', get_template_directory().'/languages' );                      // For themes, triggered on the 'after_setup_theme' action
-load_plugin_textdomain( 'text-domain', alwaysfalse, basename( dirname(__FILE__) ).'/languages/' );  // For plugins, triggered on the 'plugins_loaded' action
+load_theme_textdomain( 'text-domain', get_template_directory().'/languages' );                      	// For themes, triggered on the 'after_setup_theme' action
+load_plugin_textdomain( 'text-domain', false, dirname( plugin_basename( __FILE__ ) ).'/languages/' );	// For plugins, triggered on the 'plugins_loaded' action. Here __FILE__ is the main plugin file
 
 BASIC FUNCTIONS
 __( 'my string', 'text-domain' )                            // Returns a translated string

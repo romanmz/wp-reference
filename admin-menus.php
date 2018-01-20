@@ -6,12 +6,32 @@ ADMIN MENUS
 https://codex.wordpress.org/Administration_Menus
 
 TOP LEVEL PAGES
-add_menu_page()
-remove_menu_page()
+add_menu_page(
+	$page_title,
+	$menu_title,
+	$capability,
+	$page_id,
+	$function = '',
+	$icon_url = '',
+	$position = null
+)
+remove_menu_page(
+	$page_id
+)
 
 SUBPAGES
-add_submenu_page()
-remove_submenu_page()
+add_submenu_page(
+	$parent_id,
+	$page_title,
+	$menu_title,
+	$capability,
+	$page_id,
+	$function = ''
+)
+remove_submenu_page(
+	$parent_id,
+	$page_id
+)
 
 DEFAULT PAGES
 add_dashboard_page()

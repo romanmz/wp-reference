@@ -16,6 +16,7 @@ class AdminTableColumn {
 	public $column_name;
 	public $column_label;
 	public $column_render_func;
+	public $column_sort_func;
 	public $nonce_action;
 	public $nonce_field;
 	public $quickedit_render_func;
@@ -27,28 +28,39 @@ class AdminTableColumn {
 	// ------------------------------
 	public function __construct( $config=[] ) {
 		
-		// Prepare settings
+		// Store config settings
 		$this->post_type    = $config['post_type'];
 		$this->column_name  = $config['column_name'];
 		$this->column_label = $config['column_label'];
-		$this->column_render_func = $config['column_render_func'];			// comes first in the markup
+		$this->column_render_func    = $config['column_render_func'];		// comes first in the markup
+		$this->column_sort_func      = $config['column_sort_func'];
+		$this->quickedit_render_func = $config['quickedit_render_func'];	// comes later in the markup
+		$this->quickedit_save_func   = $config['quickedit_save_func'];
+		
+		// Extra settings
 		$this->nonce_action = 'quickedit_'.$this->column_name;
 		$this->nonce_field = $this->column_name.'_nonce';
-		$this->quickedit_render_func = $config['quickedit_render_func'];	// comes later in the markup
-		$this->quickedit_save_func = $config['quickedit_save_func'];
 		$this->bulkedit_action = 'bulkedit-'.$this->post_type.'-'.$this->column_name;
 		
 		// Register hooks
 		// column
 		add_filter( 'manage_'.$this->post_type.'_posts_columns', [$this, 'register_column'] );
 		add_action( 'manage_'.$this->post_type.'_posts_custom_column', [$this, 'output_column'], 10, 2 );
-		// quick edit
-		add_action( 'admin_enqueue_scripts', [$this, 'load_admin_script'] );
-		add_action( 'quick_edit_custom_box', [$this, 'output_quick_edit_box'], 10, 2 );
-		add_action( 'save_post', [$this, 'save_data'] );
-		// bulk edit
-		add_action( 'bulk_edit_custom_box', [$this, 'output_quick_edit_box'], 10, 2 );
-		add_action( 'wp_ajax_'.$this->bulkedit_action, [$this, 'save_bulk_data'] );
+		// make sortable
+		if( is_callable( $this->column_sort_func ) ) {
+			add_filter( 'manage_edit-'.$this->post_type.'_sortable_columns', [$this, 'register_sortable_column'] );
+			add_action( 'pre_get_posts', [$this, 'sort_column'] );
+		}
+		// make editable
+		if( is_callable( $this->quickedit_render_func ) && is_callable( $this->quickedit_save_func ) ) {
+			// quick edit
+			add_action( 'admin_enqueue_scripts', [$this, 'load_admin_script'] );
+			add_action( 'quick_edit_custom_box', [$this, 'output_quick_edit_box'], 10, 2 );
+			add_action( 'save_post', [$this, 'save_data'] );
+			// bulk edit
+			add_action( 'bulk_edit_custom_box', [$this, 'output_quick_edit_box'], 10, 2 );
+			add_action( 'wp_ajax_'.$this->bulkedit_action, [$this, 'save_bulk_data'] );
+		}
 	}
 	
 	
@@ -63,6 +75,20 @@ class AdminTableColumn {
 			return;
 		}
 		call_user_func( $this->column_render_func, $column_name, $post_id );
+	}
+	
+	
+	// Prepare sortable column
+	// ------------------------------
+	public function register_sortable_column( $columns ) {
+		$columns[ $this->column_name ] = $this->column_name;
+		return $columns;
+	}
+	public function sort_column( $query ) {
+		if( !is_admin() || $query->get( 'post_type' ) !== $this->post_type || $query->get( 'orderby' ) !== $this->column_name ) {
+			return;
+		}
+		call_user_func( $this->column_sort_func, $query );
 	}
 	
 	
@@ -159,9 +185,6 @@ class AdminTableColumn {
 		if( $post_type !== $this->post_type || $column_name !== $this->column_name ) {
 			return;
 		}
-		if( !is_callable( $this->quickedit_render_func ) ) {
-			return;
-		}
 		
 		// Output js
 		$this->output_js();
@@ -211,9 +234,7 @@ class AdminTableColumn {
 		}
 		
 		// Save data
-		if( is_callable( $this->quickedit_save_func ) ) {
-			call_user_func( $this->quickedit_save_func, $post_id, $is_bulk_edit );
-		}
+		call_user_func( $this->quickedit_save_func, $post_id, $is_bulk_edit );
 	}
 	
 	
@@ -270,10 +291,13 @@ class AdminTableColumnPostRating {
 	// ------------------------------
 	public function __construct() {
 		new AdminTableColumn([
+			// required
 			'post_type'    => 'post',
 			'column_name'  => 'rating',
 			'column_label' => 'Rating',
 			'column_render_func'    => [$this, 'render_column'],
+			// optional
+			'column_sort_func'      => [$this, 'sort_column'],
 			'quickedit_render_func' => [$this, 'render_quickedit_field'],
 			'quickedit_save_func'   => [$this, 'quickedit_save'],
 		]);
@@ -303,6 +327,32 @@ class AdminTableColumnPostRating {
 			// delete post meta only when using the quick edit box on a single post, not when doing bulk edit
 			delete_post_meta( $post_id, $this->field_meta );
 		}
+	}
+	public function sort_column( $query ) {
+		// set vars
+		$has_meta = 'has-'.$this->field_meta;
+		$no_meta = 'no-'.$this->field_meta;
+		$order = $query->get( 'order' );
+		// sort posts
+		$query->set( 'meta_query', [
+			'relation' => 'OR',
+			[
+				$has_meta => [
+					'key' => $this->field_meta,
+				],
+			],
+			[
+				$no_meta => [
+					'key' => $this->field_meta,
+					'compare' => 'NOT EXISTS',
+				],
+			],
+		]);
+		$query->set( 'orderby', [
+			$has_meta => $order,
+			$no_meta => $order,
+			'post_title' => $order,
+		] );
 	}
 	
 	

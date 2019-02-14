@@ -50,7 +50,7 @@ wp_nonce_field(                                         // Also creates a nonce 
 )
 check_ajax_referer(                                     // Shortcut that looks up the nonce value in the request based on the given key, calls 'wp_verify_nonce' and dies if it's not valid
     $nonce_action = -1,
-    $request_key = '_ajax_nonce|_wpnonce',              // Key to use to search for the nonce on $_REQUEST, must match the $field_name used to send the nonce
+    $field_name = '_ajax_nonce|_wpnonce',               // Key to use to search for the nonce on $_REQUEST, must match the $field_name used to send the nonce
     $die_on_fail = true                                 // Whether or not the program should end if the nonce fails verification
 )
 

@@ -4,6 +4,7 @@
 CUSTOM POST TYPES
 ==================================================
 https://codex.wordpress.org/Custom_Post_Types
+https://developer.wordpress.org/plugins/post-types/
 
 REGISTRATION
 register_post_type()

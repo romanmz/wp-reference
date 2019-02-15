@@ -4,6 +4,7 @@
 CUSTOM TAXONOMIES
 ==================================================
 https://codex.wordpress.org/Taxonomies
+https://developer.wordpress.org/plugins/taxonomies/
 
 REGISTRATION
 register_taxonomy()

@@ -4,11 +4,16 @@
 USERS, ROLES AND CAPABILITIES
 ==================================================
 https://codex.wordpress.org/Roles_and_Capabilities
+https://developer.wordpress.org/plugins/users/
+https://developer.wordpress.org/plugins/users/working-with-users/
+https://developer.wordpress.org/plugins/users/roles-and-capabilities/
 
-MANAGE USERS
+CHECKING USER INFO
 username_exists()
 email_exists()
 wp_generate_password()
+
+MANAGE USERS
 wp_create_user()
 wp_insert_user()
 wp_update_user()

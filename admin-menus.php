@@ -1,7 +1,7 @@
 <?php
 /*
 ==================================================
-ADMIN MENUS
+ADMINISTRATION MENUS
 ==================================================
 https://codex.wordpress.org/Administration_Menus
 https://developer.wordpress.org/themes/functionality/administration-menus/

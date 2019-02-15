@@ -5,16 +5,20 @@ SHORTCODE API
 ==================================================
 https://codex.wordpress.org/Shortcode_API
 
-FUNCTIONS
+REGISTRATION
 add_shortcode()
 shortcode_atts()
 remove_shortcode()
 remove_all_shortcodes()
+
+SHORTCODE INFO
 shortcode_exists()
-do_shortcode()
-has_shortcode()
-strip_shortcodes()
 get_shortcode_regex()
+
+IN CONTENT
+has_shortcode()
+do_shortcode()
+strip_shortcodes()
 
 DEFAULT SHORTCODES
 wp_audio_shortcode()

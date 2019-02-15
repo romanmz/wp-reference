@@ -5,26 +5,30 @@ CUSTOM POST TYPES
 ==================================================
 https://codex.wordpress.org/Custom_Post_Types
 
-REGISTRATION AND FEATURES
+REGISTRATION
 register_post_type()
+unregister_post_type()
 add_post_type_support()
 remove_post_type_support()
-post_type_exists()
-post_type_supports()
 
-GETTING INFORMATION
+POST TYPES INFO
 get_post_types()
+get_post_types_by_support()
 get_post_type_object()
-get_post_type_capabilities()
+post_type_exists()
 is_post_type_hierarchical()
+is_post_type_viewable()
+get_all_post_type_supports()
+post_type_supports()
 
 INDIVIDUAL POSTS
 get_post_type()
 set_post_type()
 
-LOOP
+TEMPLATE TAGS
 is_post_type_archive()
 post_type_archive_title()
+get_the_post_type_description()
 
 POST TYPE SETTINGS:
 */

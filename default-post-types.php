@@ -21,11 +21,11 @@ ATTACHMENT
 Single post
 Single post (type/subtype/type_subtype)
 
-NAV_MENU_ITEM
-
 
 // Private
 // ------------------------------
+
+NAV_MENU_ITEM
 
 WP_BLOCK
 

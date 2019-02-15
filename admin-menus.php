@@ -4,6 +4,8 @@
 ADMIN MENUS
 ==================================================
 https://codex.wordpress.org/Administration_Menus
+https://developer.wordpress.org/themes/functionality/administration-menus/
+https://developer.wordpress.org/plugins/administration-menus/
 
 TOP LEVEL PAGES
 add_menu_page(
@@ -37,6 +39,7 @@ DEFAULT PAGES
 add_dashboard_page()
 add_posts_page()
 add_media_page()
+add_links_page()
 add_pages_page()
 add_comments_page()
 add_theme_page()

@@ -1,7 +1,7 @@
 <?php
 /*
 ==================================================
-TRANSIENTS
+TRANSIENTS API
 ==================================================
 https://codex.wordpress.org/Transients_API
 

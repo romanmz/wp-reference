@@ -4,6 +4,7 @@
 SHORTCODE API
 ==================================================
 https://codex.wordpress.org/Shortcode_API
+https://developer.wordpress.org/plugins/shortcodes/
 
 REGISTRATION
 add_shortcode()

@@ -1,8 +1,9 @@
 <?php
 /*
 ==================================================
-CUSTOM POST META (pending)
+METADATA API - CUSTOM POST META [pending]
 ==================================================
+https://codex.wordpress.org/Metadata_API
 https://codex.wordpress.org/Custom_Fields
 
 POST META

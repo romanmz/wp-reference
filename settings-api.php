@@ -7,72 +7,72 @@ https://codex.wordpress.org/Settings_API
 
 REGISTER SETTINGS
 register_setting(
-	$option_group,						// ! the documentation refers to this variable as 'option_group', but I'm 99% sure it's actually supposed to be the $page_id
-	$option_id,
+	$page_name,						// built-in settings pages like 'general', 'reading', 'writing', etc…, or a custom page slug returned from add_options_page()
+	$option_name,					// name of the option in the database
 	$args = [
-		'type' => '',					// ???
-		'description' => '',			// ???
-		'sanitize_callback' => '',
-		'show_in_rest' => '',			// ???
-		'default' => '',
+		'type'              => (string),
+		'description'       => (string),
+		'sanitize_callback' => (callable),
+		'show_in_rest'      => (bool)
+		'default'           => (mixed),
 	]
 )
 unregister_setting(
-	$option_group,
-	$option_id
+	$page_name,
+	$option_name
 )
 
 ADD SECTIONS AND FIELDS
 add_settings_section(
-	$section_id,
-	$section_title,
-	$callback,
-	$page_id
+	$section_name,
+	$section_label,
+	$section_callback,
+	$page_name
 )
 add_settings_field(
-	$field_id,
-	$field_title,
-	$callback,
-	$page_id,
-	$section_id = 'default',
+	$field_name,
+	$field_label,
+	$field_callback,
+	$page_name,
+	$section_name = 'default',
 	$args = [
-		'label_for' => '',
-		'class' => '',
+		'label_for' => (string),
+		'class'     => (string),
 	]
 )
 
 FORM RENDERING
 settings_fields(
-	$option_group
+	$page_name
 )
 do_settings_sections(
-	$page_id
+	$page_name
 )
 do_settings_fields(
-	$page_id,
-	$section_id
+	$page_name,
+	$section_name
 )
 submit_button(
 	$text = 'Save Changes',
-	$type = 'primary',					// 'primary'|'small'|'large'
+	$type = 'primary',					// 'primary'|'small'|'large'|'other'
 	$name = 'submit',
 	$wrap = true,
-	$other_attributes = null
+	$other_attributes = []
 )
 
 ERRORS
 add_settings_error(
-	$option_id,
-	$code,
-	$message,
-	$type = 'error'
+	$option_name,
+	$error_name,
+	$error_message,
+	$error_type = 'error'				// 'error'|'updated'|'notice-info'
 )
 get_settings_errors(
-	$option_id = '',
+	$option_name = '',
 	$sanitize = false
 )
 settings_errors(
-	$option_id = '',
+	$option_name = '',
 	$sanitize = false,
 	$hide_on_update = false
 )

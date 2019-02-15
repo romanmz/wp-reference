@@ -4,6 +4,7 @@
 TRANSIENTS API
 ==================================================
 https://codex.wordpress.org/Transients_API
+https://developer.wordpress.org/plugins/http-api/
 
 SINGLE SITE
 get_transient()

@@ -12,44 +12,44 @@ _get_cron_array()               // Get the full list of scheduled events
 
 SCHEDULE EVENTS
 wp_schedule_event(
-    $scheduled_timestamp,       // The timestamp (UTC) when the event should run for the first time
-    $event_recurrence,          // Keyword matching a registered schedule (defined on the 'cron_schedules' filter)
-    $event_name,                // Name of the event to trigger with do_action
-    $event_args = []            // Data to pass to the callback, also used to further identify a particular event (there could be multiple events with the same name but different arguments)
+	$scheduled_timestamp,       // The timestamp (UTC) when the event should run for the first time
+	$event_recurrence,          // Keyword matching a registered schedule (defined on the 'cron_schedules' filter)
+	$event_name,                // Name of the event to trigger with do_action
+	$event_args = []            // Data to pass to the callback, also used to further identify a particular event (there could be multiple events with the same name but different arguments)
 )
 wp_reschedule_event(
-    $scheduled_timestamp,       // Updated time for its next run
-    $event_recurrence,
-    $event_name,
-    $event_args = []
+	$scheduled_timestamp,       // Updated time for its next run
+	$event_recurrence,
+	$event_name,
+	$event_args = []
 )
 wp_schedule_single_event(       // Schedules an event to run only once
-    $scheduled_timestamp,
-    $event_name,
-    $event_args = []
+	$scheduled_timestamp,
+	$event_name,
+	$event_args = []
 )
 wp_next_scheduled(              // Returns the timestamp of the next scheduled run of a given event (also matches the args)
-    $event_name,
-    $event_args = []
+	$event_name,
+	$event_args = []
 )
 wp_unschedule_event(            // Unschedule a particular event run (also matches the args)
-    $scheduled_timestamp,       // Timestamp of the next scheduled run
-    $event_name,
-    $event_args = []
+	$scheduled_timestamp,       // Timestamp of the next scheduled run
+	$event_name,
+	$event_args = []
 )
 wp_clear_scheduled_hook(        // Unschedules all runs of a particular event (also matches the args)
-    $event_name,
-    $event_args = []
+	$event_name,
+	$event_args = []
 )
 wp_unschedule_hook(             // Unschedules all runs of a particular event (regardless of the args)
-    $event_name
+	$event_name
 )
 
 REGISTER CRON SCHEDULES
 wp_get_schedules()              // Get the info of all registered cron schedules (modified by the 'cron_schedules' filter)
 wp_get_schedule(                // Returns the name of the cron schedule used to register a particular event (e.g. 'daily')
-    $event_name,
-    $event_args = []
+	$event_name,
+	$event_args = []
 )
 
 FILTERS
@@ -63,4 +63,34 @@ If you need a task to always run at an exact time or interval, you'll need to se
 UNIX commands
 crontab -e                                          // lists all current crons
 0 0 * * * wget http://YOUR_SITE_URL/wp-cron.php     // Run once every midnight
-                                                    // minute[0-59], hour[0-23], day of month[1-31], month[1-12], day of week[0-6] (sunday is '0')
+													// minute[0-59], hour[0-23], day of month[1-31], month[1-12], day of week[0-6] (sunday is '0')
+
+
+EXAMPLE:
+------------------------------
+*/
+
+// 1. Register a custom cron schedule
+add_filter( 'cron_schedules', 'register_fortnightly_schedule' );
+function register_fortnightly_schedule( $schedules ) {
+	// Default schedules are: 'hourly', 'twicedaily' and 'daily'
+	$schedules['fortnightly'] = [
+		'interval' => 60 * 60 * 24 * 7 * 2,
+		'display' => __( 'Once Fortnightly' ),
+	];
+	return $schedules;
+}
+
+// 2. Schedule events
+add_action( 'wp', 'schedule_my_fortnightly_event' );
+function schedule_my_fortnightly_event() {
+	if( !wp_next_scheduled( 'my_fortnightly_event' ) ) {
+		wp_schedule_event( time(), 'fortnightly', 'my_fortnightly_event' );
+	}
+}
+
+// 3. Events are triggered as actions
+add_action( 'my_fortnightly_event', 'my_fortnightly_event_callback' );
+function my_fortnightly_event_callback() {
+	// this will run every fortnight
+}

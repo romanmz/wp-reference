@@ -1,8 +1,9 @@
 <?php
 /*
 ==================================================
-CUSTOM USER META
+METADATA API - CUSTOM USER META
 ==================================================
+https://codex.wordpress.org/Metadata_API
 https://developer.wordpress.org/plugins/users/working-with-user-metadata/
 
 USER META

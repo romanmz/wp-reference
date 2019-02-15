@@ -5,6 +5,17 @@ CUSTOM USER META
 ==================================================
 https://developer.wordpress.org/plugins/users/working-with-user-metadata/
 
+USER META
+add_user_meta()
+delete_user_meta()
+get_user_meta()
+update_user_meta()
+
+USER OPTIONS
+get_user_option()
+delete_user_option()
+update_user_option()
+
 HELPER CLASS:
 */
 class UserMetaSection {

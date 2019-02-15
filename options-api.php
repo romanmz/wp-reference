@@ -4,6 +4,7 @@
 OPTIONS API
 ==================================================
 https://codex.wordpress.org/Options_API
+https://developer.wordpress.org/plugins/settings/options-api/
 
 SITE OPTIONS - CURRENT SITE
 get_option()

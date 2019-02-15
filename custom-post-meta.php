@@ -1,7 +1,7 @@
 <?php
 /*
 ==================================================
-CUSTOM POST META
+CUSTOM POST META (pending)
 ==================================================
 https://codex.wordpress.org/Custom_Fields
 

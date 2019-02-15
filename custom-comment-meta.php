@@ -1,7 +1,7 @@
 <?php
 /*
 ==================================================
-CUSTOM COMMENT META
+CUSTOM COMMENT META (pending)
 ==================================================
 https://www.smashingmagazine.com/2012/05/adding-custom-fields-in-wordpress-comment-form/
 

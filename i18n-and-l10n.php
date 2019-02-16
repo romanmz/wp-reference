@@ -4,6 +4,10 @@
 INTERNATIONALIZATION (i18n)
 ==================================================
 https://developer.wordpress.org/plugins/internationalization/
+https://developer.wordpress.org/themes/functionality/internationalization/
+https://developer.wordpress.org/themes/functionality/localization/
+https://developer.wordpress.org/plugins/internationalization/
+https://developer.wordpress.org/plugins/internationalization/localization/
 
 i18n means preparing a theme/plugin to be easily translated into other languages
 
@@ -12,8 +16,9 @@ Text Domain: text-domain
 Domain Path: /languages                                     // Only required if folder name is not "languages"
 
 LOADING TEXT DOMAINS
-load_theme_textdomain( 'text-domain', get_template_directory().'/languages' );                      	// For themes, triggered on the 'after_setup_theme' action
-load_plugin_textdomain( 'text-domain', false, dirname( plugin_basename( __FILE__ ) ).'/languages/' );	// For plugins, triggered on the 'plugins_loaded' action. Here __FILE__ is the main plugin file
+load_theme_textdomain( 'text-domain', get_template_directory().'/languages' );                          // For themes, triggered on the 'after_setup_theme' action
+load_child_theme_textdomain( 'text-domain', get_stylesheet_directory().'/languages' );                  // Same but for child themes
+load_plugin_textdomain( 'text-domain', false, dirname( plugin_basename( __FILE__ ) ).'/languages/' );   // For plugins, triggered on the 'plugins_loaded' action. Here __FILE__ is the main plugin file
 
 BASIC FUNCTIONS
 __( 'my string', 'text-domain' )                            // Returns a translated string
@@ -55,6 +60,7 @@ SECURITY (WHEN WORKING WITH EXTERNAL TRANSLATORS)
 - Check for malicious code, and always escape strings
 - Use placeholders for urls and variables
 - Compile your own .mo binaries
+
 
 
 ==================================================

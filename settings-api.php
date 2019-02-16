@@ -4,6 +4,7 @@
 SETTINGS API
 ==================================================
 https://codex.wordpress.org/Settings_API
+https://developer.wordpress.org/plugins/settings/settings-api/
 
 REGISTER SETTINGS
 register_setting(

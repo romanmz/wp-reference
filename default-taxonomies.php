@@ -3,6 +3,7 @@
 ==================================================
 DEFAULT TAXONOMIES [pending]
 ==================================================
+https://developer.wordpress.org/themes/functionality/post-formats/
 
 
 // Public

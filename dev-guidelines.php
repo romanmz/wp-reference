@@ -35,3 +35,7 @@ API REFERENCE
 https://make.wordpress.org/core/handbook/best-practices/core-apis/
 https://developer.wordpress.org/
 https://codex.wordpress.org/Function_Reference
+
+THEME FUNCTIONS REFERENCE
+https://developer.wordpress.org/themes/references/list-of-template-tags/
+https://developer.wordpress.org/themes/references/list-of-conditional-tags/

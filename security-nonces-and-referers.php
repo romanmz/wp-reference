@@ -1,7 +1,7 @@
 <?php
 /*
 ==================================================
-NONCES
+SECURITY - NONCES
 ==================================================
 https://developer.wordpress.org/themes/theme-security/using-nonces/
 https://developer.wordpress.org/plugins/security/nonces/
@@ -37,7 +37,7 @@ check_admin_referer(                                    // Succeeds if the nonce
 
 
 ==================================================
-REFERERS
+SECURITY - REFERERS
 ==================================================
 
 SIMPLE CREATION AND VERIFICATION
